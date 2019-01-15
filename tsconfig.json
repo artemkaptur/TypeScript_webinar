@@ -9,7 +9,7 @@
     "removeComments": false,
     "noImplicitAny": false,
     "strictNullChecks": false,
-    "outDir": "./dist"
+    "outDir": "./dist"  
   },
   "exclude": [
     "node_modules",
