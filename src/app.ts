@@ -5,23 +5,23 @@ function showHello(divName: string, name: string) {
     elt.innerText = `Hello from ${name}`;
 }
 
-// task 01
+// task 01-03 =============================================
 enum Category {
     JavaScript, CSS, HTML, TypeScript, Angular
 }
 
-function getAllBooks(): any[] {
-    let books: any[] = [
-        { title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript },
-        { title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: false, category: Category.JavaScript },
-        { title: 'CSS Secrets', author: 'Lea Verou', available: true, category: Category.CSS },
-        { title: 'Mastering JavaScript Object-Oriented Programming', author: 'Andrea Chiarelli', available: true, category: Category.JavaScript }
+function getAllBooks(): Book[] {
+    let books: Book[] = [
+        { id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript },
+        { id: 2, title: 'JavaScript Testing', author: 'Liang Yuxian Eugene', available: false, category: Category.JavaScript },
+        { id: 3, title: 'CSS Secrets', author: 'Lea Verou', available: true, category: Category.CSS },
+        { id: 4, title: 'Mastering JavaScript Object-Oriented Programming', author: 'Andrea Chiarelli', available: true, category: Category.JavaScript }
     ];
 
     return books;
 }
 
-function getBookTitesByCategory(category: Category): Array<string> {
+function getBookTitesByCategory(category: Category = Category.JavaScript): Array<string> {
     const allBooks = getAllBooks();
     let titles: string[] = [];
 
@@ -33,7 +33,12 @@ function getBookTitesByCategory(category: Category): Array<string> {
     return titles;
 }
 
-function logFirstAvalable(books: any[]): void {
+function getBookById(id: number): Book {
+    const allBooks = getAllBooks();
+    return allBooks.find(book => book.id === id);
+}
+
+function logFirstAvalable(books: any[] = getAllBooks()): void {
     const numberOfBooks: number = books.length;
     let firstAvalableBookTitle: string = '';
 
@@ -54,5 +59,110 @@ function logBookTitles(titles: string[]): void {
 
 logFirstAvalable(getAllBooks());
 logBookTitles(getBookTitesByCategory(Category.JavaScript));
+console.log(getBookById(2));
+// ================================================
 
-// ==================================
+// task 04-05 =================================================
+function createCustomerID(name: string, id: number): string {
+    return `${name}${id}`;
+}
+
+function createCustomer(name: string, age?: number, city?: string): void {
+    console.log(`Customer name is: ${name}`)
+
+    if (age) {
+        console.log(`Age: ${age}`);
+    }
+
+    if (city) {
+        console.log(`City: ${city}`);
+    }
+}
+
+function checkoutBooks(customer: string, ...bookIDs: number[]): string[] {
+    console.log(`Customer name is: ${customer}`);
+    const titles: string[] = []
+
+    for (const id of bookIDs) {
+        const book = getBookById(id);
+        if (book && book.available) {
+            titles.push(book.title);
+        }
+    }
+
+    return titles;
+}
+
+let myID = createCustomerID('Bob', 8);
+console.log(myID);
+let idGenerator: (name: string, id: number) => string;
+idGenerator = createCustomerID;
+myID = idGenerator('Billy', 88);
+console.log(myID);
+
+createCustomer(`Bob`);
+createCustomer(`Bob`, 20);
+createCustomer(`Bob`, 20, 'Minsk')
+console.log(getBookTitesByCategory());
+logFirstAvalable();
+
+const myBooks = checkoutBooks('Bob', 1, 2, 3);
+myBooks.forEach(title => console.log(title))
+// ================================================
+
+// task 06 ================================================
+function getTitles(author: string): string[];
+function getTitles(available: boolean): string[];
+function getTitles(bookproperty: any): string[] {
+    const allBooks = getAllBooks();
+
+    if (typeof bookproperty === 'string') {
+        return allBooks
+            .filter(book => book.author === bookproperty)
+            .map(book => book.title);
+    }
+    else if (typeof bookproperty === 'boolean') {
+        return allBooks
+            .filter(book => book.available === bookproperty)
+            .map(book => book.title);
+    }
+}
+
+console.log(getTitles(false));
+// ===========================================================
+
+// task 07-08 ===================================================
+interface Book {
+    id: number;
+    title: string;
+    author: string;
+    available: boolean;
+    category: Category;
+    pages?: number;
+    markDamaged?: DamageLogger;
+}
+
+interface DamageLogger {
+    (reason: string): void;
+}
+
+function printBook(book: Book): void {
+    console.log(`${book.title} by ${book.author}`);
+}
+
+const myBook = {
+    id: 5,
+    title: 'Colors, Backgrounds, and Gradients',
+    author: 'Eric A. Meyer',
+    available: true,
+    category: Category.CSS,
+    year: 2015,
+    copies: 3,
+    pages: 200,
+    markDamaged: (reason: string) => console.log(`Damaged: ${reason}`)
+}
+printBook(myBook);
+myBook.markDamaged('dropped into water');
+
+const logDamage: DamageLogger = (damage: string) => console.log(`Damage: ${damage}`);
+logDamage(`Stalin`);
