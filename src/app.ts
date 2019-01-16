@@ -1,3 +1,7 @@
+import { Category } from './enums';
+import { Book, Logger as DamageLogger, Author, Librarian } from './intefaces';
+import { UniversityLibrarian, ReferenceItem } from './classes';
+
 showHello('greeting', 'TypeScript');
 
 function showHello(divName: string, name: string) {
@@ -6,10 +10,6 @@ function showHello(divName: string, name: string) {
 }
 
 // task 01-03 =============================================
-enum Category {
-    JavaScript, CSS, HTML, TypeScript, Angular
-}
-
 function getAllBooks(): Book[] {
     let books: Book[] = [
         { id: 1, title: 'Refactoring JavaScript', author: 'Evan Burchard', available: true, category: Category.JavaScript },
@@ -132,20 +132,6 @@ console.log(getTitles(false));
 // ===========================================================
 
 // task 07-08 ===================================================
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-    available: boolean;
-    category: Category;
-    pages?: number;
-    markDamaged?: DamageLogger;
-}
-
-interface DamageLogger {
-    (reason: string): void;
-}
-
 function printBook(book: Book): void {
     console.log(`${book.title} by ${book.author}`);
 }
@@ -169,29 +155,6 @@ logDamage(`Stalin`);
 // ===========================================================
 
 // task 09-10 ===================================================
-interface Person {
-    name: string;
-    email: string;
-}
-
-interface Author extends Person {
-    numBooksPublished: number;
-}
-
-interface Librarian extends Person {
-    department: string;
-    assistCustomer: (custName: string) => void;
-}
-
-class UniversityLibrarian implements Librarian {
-    name: string;
-    email: string;
-    department: string;
-    assistCustomer(custName: string): void {
-        console.log(`${this.name} is assisting ${custName}`)
-    }
-}
-
 const favoriteAouthor: Author = {
     name: 'Bob',
     email: 'Bob@gmail.com',
@@ -211,39 +174,6 @@ favoriteLibrarian.assistCustomer('Boris');
 // ===========================================================
 
 // task 11-13 ===================================================
-abstract class ReferenceItem {
-    // title: string;
-    // year: number;
-
-    // constructor(newTitle: string, newYear: number) {
-    //     console.log('Creating a new referenceItem...');
-    //     this.title = newTitle;
-    //     this.year = newYear;
-    // }
-
-    private _publisher: string;
-    static department: string = 'New department';
-
-    constructor(public title: string, public year: number) {
-        console.log('Creating a new referenceItem...');
-    }
-
-    get publisher(): string {
-        return this._publisher.toUpperCase();
-    }
-
-    set publisher(newPublisher: string) {
-        this._publisher = newPublisher;
-    }
-
-    printItem(): void {
-        console.log(`Department: ${ReferenceItem.department}`)
-        console.log(`${this.title} was published in ${this.year}`);
-    }
-
-    abstract printCitation(): void; Ó
-}
-
 class Encyclopedia extends ReferenceItem {
     constructor(title: string, year: number, protected edition: number) {
         super(title, year);
