@@ -185,7 +185,7 @@ const refBook: ReferenceItem = new Encyclopedia('Blabla', 1999, 20);
 refBook.printItem();
 // ===========================================================
 
-// task task 18-19 ===================================================
+// task task 18-20 ===================================================
 const inventory: Array<Book> = [
     { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
     { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
@@ -216,3 +216,5 @@ console.log(firstMagazine);
 
 magazineShelf.printTitles();
 console.log(magazineShelf.find('Five Points'));
+// ===========================================================
+
