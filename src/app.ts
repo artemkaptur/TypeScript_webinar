@@ -1,7 +1,6 @@
 import { Category } from './enums';
 import { Book, Logger as DamageLogger, Author, Librarian } from './intefaces';
-import { UniversityLibrarian, ReferenceItem } from './classes';
-import RefBook from './Encyclopedia';
+import { Encyclopedia, UniversityLibrarian, ReferenceItem } from './classes/index';
 
 showHello('greeting', 'TypeScript');
 
@@ -180,6 +179,6 @@ favoriteLibrarian.assistCustomer('Boris');
 // ref.publisher = 'Random publisher';
 // console.log(ref.publisher);
 
-const refBook: ReferenceItem = new RefBook('Blabla', 1999, 20);
+const refBook: ReferenceItem = new Encyclopedia('Blabla', 1999, 20);
 refBook.printItem();
 // ===========================================================
