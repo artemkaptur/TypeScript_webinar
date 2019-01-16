@@ -1,7 +1,7 @@
 import { Category } from './enums';
 import { Book, Logger as DamageLogger, Author, Librarian, Magazine } from './intefaces';
 import { Encyclopedia, UniversityLibrarian, ReferenceItem } from './classes/index';
-import { purge, logFirstAvalable, getAllBooks, logBookTitles, getBookTitesByCategory, getBookById, createCustomerID, createCustomer, getTitles, printBook, checkoutBooks, getBooksByCategory, logCategorySearch, getBooksByCategoryPromise } from './lib/util-functions';
+import { purge, logFirstAvalable, getAllBooks, logBookTitles, getBookTitesByCategory, getBookById, createCustomerID, createCustomer, getTitles, printBook, checkoutBooks, getBooksByCategory, logCategorySearch, getBooksByCategoryPromise, logSearchResults } from './lib/util-functions';
 import Shelf from './shelf';
 
 showHello('greeting', 'TypeScript');
@@ -143,4 +143,11 @@ getBooksByCategoryPromise(Category.JavaScript)
     .then(numOfBooks => console.log(numOfBooks))
     .catch(err => console.log(err));
 console.log('End');
+// ===========================================================
+
+// task 23-24 ===========================================================
+console.log('Beginning search...');
+logSearchResults(Category.JavaScript)
+    .catch(reason => console.log(reason));
+console.log('Search submitted...');
 // ===========================================================
