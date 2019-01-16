@@ -1,6 +1,6 @@
 import { ReferenceItem } from './ReferenceItem';
 
-export default class Encyclopedia extends ReferenceItem {
+export class Encyclopedia extends ReferenceItem {
     constructor(title: string, year: number, protected edition: number) {
         super(title, year);
     }

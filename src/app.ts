@@ -1,6 +1,7 @@
 import { Category } from './enums';
 import { Book, Logger as DamageLogger, Author, Librarian } from './intefaces';
 import { Encyclopedia, UniversityLibrarian, ReferenceItem } from './classes/index';
+import { purge } from './lib/util-functions';
 
 showHello('greeting', 'TypeScript');
 
@@ -182,3 +183,17 @@ favoriteLibrarian.assistCustomer('Boris');
 const refBook: ReferenceItem = new Encyclopedia('Blabla', 1999, 20);
 refBook.printItem();
 // ===========================================================
+
+// task task 18 ===================================================
+const inventory: Array<Book> = [
+    { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
+    { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
+    { id: 12, title: '8-Bit Graphics with Cobol', author: 'A. B.', available: true, category: Category.Software },
+    { id: 13, title: 'Cool autoexec.bat Scripts!', author: 'C. D.', available: true, category: Category.Software }
+
+];
+
+let result = purge(inventory);
+console.log(result);
+let result1 = purge([1, 2, 3, 4, 5]);
+console.log(result1);
