@@ -166,3 +166,104 @@ myBook.markDamaged('dropped into water');
 
 const logDamage: DamageLogger = (damage: string) => console.log(`Damage: ${damage}`);
 logDamage(`Stalin`);
+// ===========================================================
+
+// task 09-10 ===================================================
+interface Person {
+    name: string;
+    email: string;
+}
+
+interface Author extends Person {
+    numBooksPublished: number;
+}
+
+interface Librarian extends Person {
+    department: string;
+    assistCustomer: (custName: string) => void;
+}
+
+class UniversityLibrarian implements Librarian {
+    name: string;
+    email: string;
+    department: string;
+    assistCustomer(custName: string): void {
+        console.log(`${this.name} is assisting ${custName}`)
+    }
+}
+
+const favoriteAouthor: Author = {
+    name: 'Bob',
+    email: 'Bob@gmail.com',
+    numBooksPublished: 10
+}
+
+// const favoriteLibrarian: Librarian = {
+//     name: 'Billy',
+//     email: 'Billy@gmail.com',
+//     department: 'Classical',
+//     assistCustomer: (name: string) => console.log(`Assist ${name}`)
+// }
+
+const favoriteLibrarian: Librarian = new UniversityLibrarian();
+favoriteLibrarian.name = 'Ann';
+favoriteLibrarian.assistCustomer('Boris');
+// ===========================================================
+
+// task 11-12 ===================================================
+abstract class ReferenceItem {
+    // title: string;
+    // year: number;
+
+    // constructor(newTitle: string, newYear: number) {
+    //     console.log('Creating a new referenceItem...');
+    //     this.title = newTitle;
+    //     this.year = newYear;
+    // }
+
+    private _publisher: string;
+    static department: string = 'New department';
+
+    constructor(public title: string, public year: number) {
+        console.log('Creating a new referenceItem...');
+    }
+
+    get publisher(): string {
+        return this._publisher.toUpperCase();
+    }
+
+    set publisher(newPublisher: string) {
+        this._publisher = newPublisher;
+    }
+
+    printItem(): void {
+        console.log(`Department: ${ReferenceItem.department}`)
+        console.log(`${this.title} was published in ${this.year}`);
+    }
+
+    abstract printCitation(): void; Ó
+}
+
+class Encyclopedia extends ReferenceItem {
+    constructor(title: string, year: number, protected edition: number) {
+        super(title, year);
+    }
+
+    printItem(): void {
+        super.printItem();
+        console.log(`Edetion:${this.edition} (${this.year})`);
+    }
+
+    printCitation(): void {
+        console.log(`${this.title} - ${this.year}`);
+    }
+}
+
+// const ref = new ReferenceItem('my title', 2000);
+// ref.printItem();
+// ref.publisher = 'Random publisher';
+// console.log(ref.publisher);
+
+const refBook: ReferenceItem = new Encyclopedia('Blabla', 1999, 20);
+refBook.printItem();
+// ===========================================================
