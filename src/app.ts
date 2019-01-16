@@ -1,7 +1,8 @@
 import { Category } from './enums';
-import { Book, Logger as DamageLogger, Author, Librarian } from './intefaces';
+import { Book, Logger as DamageLogger, Author, Librarian, Magazine } from './intefaces';
 import { Encyclopedia, UniversityLibrarian, ReferenceItem } from './classes/index';
 import { purge } from './lib/util-functions';
+import Shelf from './shelf';
 
 showHello('greeting', 'TypeScript');
 
@@ -184,7 +185,7 @@ const refBook: ReferenceItem = new Encyclopedia('Blabla', 1999, 20);
 refBook.printItem();
 // ===========================================================
 
-// task task 18 ===================================================
+// task task 18-19 ===================================================
 const inventory: Array<Book> = [
     { id: 10, title: 'The C Programming Language', author: 'K & R', available: true, category: Category.Software },
     { id: 11, title: 'Code Complete', author: 'Steve McConnell', available: true, category: Category.Software },
@@ -193,7 +194,25 @@ const inventory: Array<Book> = [
 
 ];
 
-let result = purge(inventory);
-console.log(result);
-let result1 = purge([1, 2, 3, 4, 5]);
-console.log(result1);
+// let result = purge(inventory);
+// console.log(result);
+// let result1 = purge([1, 2, 3, 4, 5]);
+// console.log(result1);
+
+const bookShelf: Shelf<Book> = new Shelf<Book>();
+inventory.forEach(book => bookShelf.add(book));
+const firstBook: Book = bookShelf.getFirst();
+console.log(firstBook);
+
+const magazines: Magazine[] = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press' },
+    { title: 'Five Points', publisher: 'GSU' }
+];
+const magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
+magazines.forEach(mag => magazineShelf.add(mag));
+const firstMagazine = magazineShelf.getFirst();
+console.log(firstMagazine);
+
+magazineShelf.printTitles();
+console.log(magazineShelf.find('Five Points'));
