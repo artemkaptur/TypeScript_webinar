@@ -210,7 +210,7 @@ favoriteLibrarian.name = 'Ann';
 favoriteLibrarian.assistCustomer('Boris');
 // ===========================================================
 
-// task 11-12 ===================================================
+// task 11-13 ===================================================
 abstract class ReferenceItem {
     // title: string;
     // year: number;
