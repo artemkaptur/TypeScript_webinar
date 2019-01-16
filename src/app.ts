@@ -1,7 +1,7 @@
 import { Category } from './enums';
 import { Book, Logger as DamageLogger, Author, Librarian, Magazine } from './intefaces';
 import { Encyclopedia, UniversityLibrarian, ReferenceItem } from './classes/index';
-import { purge, logFirstAvalable, getAllBooks, logBookTitles, getBookTitesByCategory, getBookById, createCustomerID, createCustomer, getTitles, printBook, checkoutBooks, getBooksByCategory, logCategorySearch } from './lib/util-functions';
+import { purge, logFirstAvalable, getAllBooks, logBookTitles, getBookTitesByCategory, getBookById, createCustomerID, createCustomer, getTitles, printBook, checkoutBooks, getBooksByCategory, logCategorySearch, getBooksByCategoryPromise } from './lib/util-functions';
 import Shelf from './shelf';
 
 showHello('greeting', 'TypeScript');
@@ -12,16 +12,12 @@ function showHello(divName: string, name: string) {
 }
 
 // task 01-03 =============================================
-
-
 logFirstAvalable(getAllBooks());
 logBookTitles(getBookTitesByCategory(Category.JavaScript));
 console.log(getBookById(2));
 // ================================================
 
 // task 04-05 =================================================
-
-
 let myID = createCustomerID('Bob', 8);
 console.log(myID);
 let idGenerator: (name: string, id: number) => string;
@@ -40,14 +36,10 @@ myBooks.forEach(title => console.log(title))
 // ================================================
 
 // task 06 ================================================
-
-
 console.log(getTitles(false));
 // ===========================================================
 
 // task 07-08 ===================================================
-
-
 const myBook = {
     id: 5,
     title: 'Colors, Backgrounds, and Gradients',
@@ -137,7 +129,18 @@ magazineShelf.printTitles();
 console.log(magazineShelf.find('Five Points'));
 // ===========================================================
 
-// task 23 ===========================================================
+// task 23-24 ===========================================================
 console.log('Begin...');
 getBooksByCategory(Category.JavaScript, logCategorySearch);
 console.log('End');
+
+console.log('Begin...');
+getBooksByCategoryPromise(Category.JavaScript)
+    .then(titles => {
+        console.log(titles);
+        return getTitles.length;
+    })
+    .then(numOfBooks => console.log(numOfBooks))
+    .catch(err => console.log(err));
+console.log('End');
+// ===========================================================
