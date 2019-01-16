@@ -170,9 +170,18 @@ const favoriteAouthor: Author = {
 //     assistCustomer: (name: string) => console.log(`Assist ${name}`)
 // }
 
-const favoriteLibrarian: Librarian = new UniversityLibrarian();
+const favoriteLibrarian = new UniversityLibrarian();
 favoriteLibrarian.name = 'Ann';
 favoriteLibrarian.assistCustomer('Boris');
+favoriteLibrarian.assistFaculty = () => console.log('!!!!!!');
+favoriteLibrarian.assistFaculty();
+try {
+favoriteLibrarian.teachCommunity = () => console.log('???????');
+}
+catch (err) {
+    console.log(err);
+}
+favoriteLibrarian.teachCommunity();
 // ===========================================================
 
 // task 11-13 ===================================================

@@ -7,9 +7,7 @@ export function sealed(p: string) {
     };
 }
 
-export function logger<T extends Function>(
-    target: T
-): T {
+export function logger<T extends Function>(target: T): T {
     let newConstructor: Function = function () {
         console.log('Creating new instanse');
         console.log(target);
@@ -18,4 +16,11 @@ export function logger<T extends Function>(
     newConstructor.prototype = Object.create(target.prototype);
     newConstructor.prototype.constructor = target;
     return <T>newConstructor;
+}
+export function writable(isWritable: boolean) {
+    return function (target: Object, methodName: string, descriptor: PropertyDescriptor) {
+        console.log('Decorator method: ${methodName}');
+
+        descriptor.writable = isWritable;
+    };
 }
